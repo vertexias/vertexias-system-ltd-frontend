@@ -1,13 +1,13 @@
 // App.tsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { ProtectedRoute } from '@/components/protectedRoute';
 import { Navbar } from '@/components/Navbar';
 import { Login } from '@/pages/Login';
 import Admin from '@/pages/Admin';
 import Index from './pages/Index';
 import { config } from '@/utils/config';
 import { ThemeProvider } from './components/ThemeProvider';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
   return (
