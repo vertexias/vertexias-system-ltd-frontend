@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Navbar } from '@/components/Navbar';
 import { Login } from '@/pages/Login';
-import Admin from '@/pages/Admin';
+import Admin from '@/pages/admin/Admin';
 import Index from './pages/Index';
 import { config } from '@/utils/config';
 import { ThemeProvider } from './components/ThemeProvider';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import Job from './pages/admin/Job';
 
 function App() {
   return (
@@ -35,6 +36,13 @@ function App() {
               </ProtectedRoute>
             } 
           />
+
+          <Route 
+              path={`/${config.admin.path}/jobs`} 
+              element={
+                <Job />
+              } 
+            />
           
           {/* Catch-all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
