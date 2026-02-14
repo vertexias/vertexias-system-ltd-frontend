@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { postContact } from "@/services/contact/contact";
 
 export const ContactSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -20,16 +21,28 @@ export const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24 hours.",
+    try {
+    await postContact({
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
     });
-    
-    setFormData({ name: '', email: '', message: '' });
+
+    toast({
+      title: "Message sent successfully!",
+      description: "We’ll get back to you within 24 hours.",
+    });
+
+    setFormData({ name: "", email: "", message: "" });
+  } catch (error: any) {
+    toast({
+      title: "Failed to send message",
+      description: error?.message || "Something went wrong.",
+      variant: "destructive",
+    });
+  } finally {
     setIsSubmitting(false);
+  }
   };
 
   return (

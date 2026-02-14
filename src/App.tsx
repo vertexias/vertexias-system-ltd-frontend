@@ -9,9 +9,12 @@ import { config } from '@/utils/config';
 import { ThemeProvider } from './components/ThemeProvider';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import Job from './pages/admin/Job';
+import Contact from './pages/admin/Contact';
+import {Toaster} from "sonner";
 
 function App() {
   return (
+    <>
     <Router>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
       <AuthProvider>
@@ -37,12 +40,24 @@ function App() {
             } 
           />
 
+
+          {/* Admin Jobs Page - Protected, Separate Route */}
           <Route 
-              path={`/${config.admin.path}/jobs`} 
-              element={
+            path={`/${config.admin.path}/jobs`} 
+            element={
+              <ProtectedRoute>
                 <Job />
-              } 
-            />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path={`/${config.admin.path}/contacts`} 
+            element={
+              <ProtectedRoute>
+                <Contact />
+              </ProtectedRoute>
+            } 
+          />
           
           {/* Catch-all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -50,6 +65,8 @@ function App() {
       </AuthProvider>
       </ThemeProvider>
     </Router>
+    <Toaster position="top-right" />
+    </>
   );
 }
 

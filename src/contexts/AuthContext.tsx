@@ -5,6 +5,7 @@ import { config } from '@/utils/config';
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  isLoading: boolean;
   user: string | null;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
@@ -24,6 +25,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   
   // Get admin path from config
@@ -45,7 +47,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout();
       }
     }
+    setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+  if (!isAuthenticated) return;
+
+  const expiration = localStorage.getItem('admin_auth_expiration');
+  if (!expiration) return;
+
+  const remainingTime = parseInt(expiration) - Date.now();
+
+  const timer = setTimeout(() => {
+    logout();
+  }, remainingTime);
+
+  return () => clearTimeout(timer);
+}, [isAuthenticated]);
+
 
   const login = async (username: string, password: string): Promise<boolean> => {
     if (username === config.admin.username && password === config.admin.password) {
@@ -53,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem('admin_auth_token', authToken);
       localStorage.setItem('admin_username', username);
       
-      const expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+      const expirationTime = new Date().getTime() + (30 * 60 * 60 * 1000);
       localStorage.setItem('admin_auth_expiration', expirationTime.toString());
       
       setIsAuthenticated(true);
@@ -77,6 +96,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider value={{ 
       isAuthenticated, 
+      isLoading,
       user, 
       login, 
       logout,

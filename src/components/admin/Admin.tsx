@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Sidebar from '@/components/admin/Sidebar';  // Import Sidebar
+import { Outlet } from 'react-router-dom';
 
 const Admin = () => {
   const { isAuthenticated } = useAuth();
@@ -22,6 +23,7 @@ const Admin = () => {
         <h1 className="text-3xl font-bold mb-4">Admin Dashboard</h1>
         <p>Welcome to the admin panel!</p>
         <p>Authentication status: {isAuthenticated ? 'Logged in' : 'Not logged in'}</p>
+        
       </div>
     </div>
   );
