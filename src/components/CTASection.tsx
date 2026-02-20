@@ -42,9 +42,11 @@ export const CTASection = () => {
                 <ArrowRight size={20} />
               </a>
             </Button>
+            <a href="#contact">
             <Button variant="heroOutline" size="xl" className="border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground hover:text-secondary">
               Schedule a Call
             </Button>
+            </a>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Linkedin, Twitter, Github, Instagram } from 'lucide-react';
+import { Linkedin, Twitter, Github, Instagram, Facebook } from 'lucide-react';
 
 const quickLinks = [
   { name: 'About', href: '#about' },
@@ -15,10 +15,9 @@ const services = [
 ];
 
 const socialLinks = [
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
-  { name: 'Twitter', icon: Twitter, href: '#' },
-  { name: 'GitHub', icon: Github, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'http://localhost:8080/' },
+  { name: 'GitHub', icon: Github, href: 'https://github.com/vertexias' },
+  { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/vertexiassystem' },
 ];
 
 export const Footer = () => {
@@ -32,7 +31,7 @@ export const Footer = () => {
               <div className="w-10 h-10 rounded-lg flex items-center justify-center">
                  <img src="/logo2.png" alt="vertexia" />
               </div>
-              <span className="font-bold text-xl text-secondary-foreground">Vertexia Sys Ltd.</span>
+              <span className="font-bold text-xl text-secondary-foreground">VERTEXIAS</span>
             </div>
             <p className="text-secondary-foreground/60 mb-6 text-sm leading-relaxed">
               Engineering digital excellence through innovative web solutions and custom software development.

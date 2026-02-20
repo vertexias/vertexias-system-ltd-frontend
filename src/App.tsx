@@ -12,12 +12,13 @@ import Job from './pages/admin/Job';
 import Contact from './pages/admin/Contact';
 import {Toaster} from "sonner";
 import Project from './pages/admin/Project';
+import QuotePage from './pages/Quote';
 
 function App() {
   return (
     <>
     <Router>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <AuthProvider>
         <Routes>
           {/* Main website with navbar */}
@@ -30,6 +31,7 @@ function App() {
           
           {/* Login page - no navbar */}
           <Route path="/login" element={<Login />} />
+          <Route path="/get-quote" element={<QuotePage />} />
           
           {/* Admin route - use the exact path from config */}
           <Route 

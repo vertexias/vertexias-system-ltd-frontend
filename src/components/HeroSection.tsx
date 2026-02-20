@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Code2, Layers, Zap } from 'lucide-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen gradient-hero overflow-hidden">
       {/* Background Elements */}
@@ -37,44 +39,30 @@ export const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-up" style={{ animationDelay: '0.3s' }}>
-            <Button variant="hero" size="xl">
+            <Button variant="hero" size="xl" onClick={() => navigate("/get-quote")}>
               Get a Quote
               <ArrowRight size={20} />
             </Button>
+            <a href='#services'>
             <Button variant="heroOutline" size="xl">
               View Services
             </Button>
-          </div>
-
-          {/* Development Notice */}
-          <div
-            className="max-w-xl mx-auto mb-12 text-sm md:text-base text-muted-foreground bg-background/60 border rounded-lg px-5 py-3 animate-fade-up"
-            style={{ animationDelay: '0.35s' }}
-          >
-            🚧 Our website is currently in the development phase.
-            For inquiries or project discussions, email us at{" "}
-            <a
-              href="mailto:vertexiasltd@gmail.com"
-              className="text-primary font-medium underline"
-            >
-              vertexiasltd@gmail.com
             </a>
           </div>
-
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto animate-fade-up" style={{ animationDelay: '0.4s' }}>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-foreground">3+</div>
-              <div className="text-sm text-muted-foreground">Ongoing Projects</div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">5+</div>
+              <div className="text-sm text-muted-foreground">Tech Stacks</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-foreground">99%</div>
-              <div className="text-sm text-muted-foreground">Client Satisfaction</div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">100%</div>
+              <div className="text-sm text-muted-foreground">Client Focused</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-foreground">3+</div>
-              <div className="text-sm text-muted-foreground">Experienced Developer</div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">Innovative</div>
+              <div className="text-sm text-muted-foreground">Solution</div>
             </div>
           </div>
         </div>

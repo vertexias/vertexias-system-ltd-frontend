@@ -36,9 +36,9 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="" className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
             <div className="w-20 h-20 rounded-lg flex items-center justify-center">
-              <img src="../../public/logo.png" alt="" />
+              <img src="logo.png" alt="" />
             </div>
             {/* <span className="font-bold text-xl text-foreground">Vertexia</span> */}
           </a>
@@ -59,9 +59,11 @@ export const Navbar = () => {
           {/* CTA Button & Theme Toggle */}
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
+            <a href='#contact'>
             <Button variant="hero" size="default">
-              Get a Quote
+              Schedule a Call
             </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button & Theme Toggle */}
