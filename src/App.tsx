@@ -11,6 +11,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import Job from './pages/admin/Job';
 import Contact from './pages/admin/Contact';
 import {Toaster} from "sonner";
+import Project from './pages/admin/Project';
 
 function App() {
   return (
@@ -55,6 +56,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Contact />
+              </ProtectedRoute>
+            } 
+          />
+
+          <Route 
+            path={`/${config.admin.path}/projects`} 
+            element={
+              <ProtectedRoute>
+                <Project />
               </ProtectedRoute>
             } 
           />

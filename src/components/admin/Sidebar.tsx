@@ -58,7 +58,7 @@ const Sidebar = () => {
 
         {/* Project Link */}
         <Link 
-          to={`${adminBasePath}/project`}
+          to={`${adminBasePath}/projects`}
           className={`block py-2 px-4 rounded transition-colors ${
             isActive('/project')
               ? 'bg-purple-500/20 text-purple-400' 

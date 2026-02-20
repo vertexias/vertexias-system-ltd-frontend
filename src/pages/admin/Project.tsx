@@ -1,72 +1,73 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/admin/Sidebar";
-import JobForm from "@/components/admin/job/JobForm";
-import JobCard from "@/components/admin/job/JobCard";
-import { getJob, deleteJob } from "@/services/admin/job";
-import { Briefcase, Plus } from "lucide-react";
+import ProjectForm from "@/components/admin/project/projectForm";
+import ProjectCard from "@/components/admin/project/ProjectCardList";
+import { getProjects, deleteProject } from "@/services/admin/project";
+import { FolderKanban, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { JobResponse } from "@/types/job_type";
+import { ProjectResponse } from "@/types/project_type";
 
-const Job = () => {
-  const [jobs, setJobs] = useState<JobResponse[]>([]);
+const Project = () => {
+  const [projects, setProjects] = useState<ProjectResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingJob, setEditingJob] = useState<JobResponse | null>(null);
+  const [editingProject, setEditingProject] = useState<ProjectResponse | null>(null);
 
-  const fetchJobs = async () => {
+  const fetchProjects = async () => {
     try {
-      const response = await getJob();
-      if (Array.isArray(response)) {
-        setJobs(response);
-      } else {
-        setJobs((response as any).data ?? []);
-      }
+      const response = await getProjects();
+
+    if (Array.isArray(response)) {
+      setProjects(response);
+    } else {
+      setProjects(response.data);
+    }
     } catch (err) {
-      toast.error("Failed to load jobs");
-      console.error("Error fetching jobs:", err);
+      toast.error("Failed to load projects");
+      console.error("Error fetching projects:", err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchJobs();
+    fetchProjects();
   }, []);
 
   const handleCreateClick = () => {
     setShowForm(!showForm);
-    setEditingJob(null);
+    setEditingProject(null); // Clear editing project when creating new
   };
 
-  const handleEdit = (job: JobResponse) => {
-    setEditingJob(job);
+  const handleEdit = (project: ProjectResponse) => {
+    setEditingProject(project);
     setShowForm(true);
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this job listing?"))
+    if (!window.confirm("Are you sure you want to delete this project?"))
       return;
 
     try {
-      await deleteJob(id);
-      setJobs((prev) => prev.filter((j) => j._id !== id));
-      toast.success("Job deleted successfully");
+      await deleteProject(id);
+      setProjects((prev) => prev.filter((p) => p._id !== id));
+      toast.success("Project deleted successfully");
     } catch (err) {
-      toast.error("Failed to delete job");
-      console.error("Error deleting job:", err);
+      toast.error("Failed to delete project");
+      console.error("Error deleting project:", err);
     }
   };
 
   const handleFormSuccess = () => {
     setShowForm(false);
-    setEditingJob(null);
-    fetchJobs();
+    setEditingProject(null);
+    fetchProjects(); // Refresh the list
   };
 
   const handleFormCancel = () => {
     setShowForm(false);
-    setEditingJob(null);
+    setEditingProject(null);
   };
 
   return (
@@ -79,66 +80,66 @@ const Job = () => {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Briefcase className="text-primary" />
+                <FolderKanban className="text-primary" />
               </div>
               <h1 className="text-3xl font-bold text-foreground">
-                Manage Jobs
+                Manage Projects
               </h1>
             </div>
 
-            {/* Post Job Button */}
+            {/* Create Project Button */}
             <Button
               onClick={handleCreateClick}
               className="gap-2"
               variant={showForm ? "outline" : "default"}
             >
               <Plus size={18} />
-              {showForm ? "Cancel" : "Post Job"}
+              {showForm ? "Cancel" : "Create Project"}
             </Button>
           </div>
 
           <p className="text-muted-foreground">
-            Create and manage your job listings.
+            Create and manage your portfolio projects.
           </p>
         </div>
 
-        {/* Job Form - Toggleable */}
+        {/* Project Form - Toggleable */}
         {showForm && (
           <div className="animate-in slide-in-from-top duration-300">
-            <JobForm
-              job={editingJob}
+            <ProjectForm
+              project={editingProject}
               onSuccess={handleFormSuccess}
               onCancel={handleFormCancel}
             />
           </div>
         )}
 
-        {/* Jobs Grid */}
+        {/* Projects Grid */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            <span className="ml-3 text-muted-foreground">Loading jobs...</span>
+            <span className="ml-3 text-muted-foreground">Loading projects...</span>
           </div>
-        ) : jobs.length === 0 ? (
+        ) : projects.length === 0 ? (
           <div className="text-center py-16 border-2 border-dashed border-border rounded-xl">
-            <Briefcase className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+            <FolderKanban className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold text-foreground mb-2">
-              No job listings yet
+              No projects yet
             </h3>
             <p className="text-muted-foreground mb-4">
-              Get started by posting your first job listing
+              Get started by creating your first project
             </p>
             <Button onClick={handleCreateClick} className="gap-2">
               <Plus size={18} />
-              Post Job
+              Create Project
             </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {jobs.map((job) => (
-              <JobCard
-                key={job._id}
-                job={job}
+            {projects.map((project) => (
+              <ProjectCard
+                key={project._id}
+                project={project}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />
@@ -150,4 +151,4 @@ const Job = () => {
   );
 };
 
-export default Job;
+export default Project;

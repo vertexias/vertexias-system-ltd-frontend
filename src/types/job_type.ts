@@ -15,7 +15,7 @@ export interface JobPayload {
 
 // Define the response structure when a job is created or updated
 export interface JobResponse {
-  id: string;  // Job ID (if created or fetched)
+  _id: string;  // Job ID (if created or fetched)
   title: string;
   type: string;
   experience: string;
@@ -24,6 +24,7 @@ export interface JobResponse {
   deadline: string;
   description: string;
   status: string;
+  applicationCount: number;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
