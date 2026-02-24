@@ -61,8 +61,8 @@ export const HeroSection = () => {
               <div className="text-sm text-muted-foreground">Client Focused</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-foreground">Innovative</div>
-              <div className="text-sm text-muted-foreground">Solution</div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">24/7</div>
+              <div className="text-sm text-muted-foreground">Support</div>
             </div>
           </div>
         </div>

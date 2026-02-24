@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, Quote, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Link } from 'react-router-dom';
+import GetAQuote from './Quote';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -27,11 +28,10 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? 'bg-card/95 backdrop-blur-md shadow-card'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -60,9 +60,9 @@ export const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
             <a href='#contact'>
-            <Button variant="hero" size="default">
-              Schedule a Call
-            </Button>
+              <Button variant="hero" size="default">
+                Schedule a Call
+              </Button>
             </a>
           </div>
 
@@ -94,9 +94,11 @@ export const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <Button variant="hero" size="lg" className="mt-4 w-full">
-              Get a Quote
-            </Button>
+            <Link to="/get-quote">
+              <Button variant="hero" size="lg" className="mt-4 w-full">
+                Get a Quote
+              </Button>
+            </Link>
           </div>
         </div>
       )}
